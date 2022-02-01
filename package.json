@@ -1,0 +1,16 @@
+{
+  "name": "BrightRiskToken",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ BrightRiskToken",
+    "create-local": "graph create --node http://localhost:8020/ BrightRiskToken",
+    "remove-local": "graph remove --node http://localhost:8020/ BrightRiskToken",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 BrightRiskToken"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.26.0",
+    "@graphprotocol/graph-ts": "0.24.1"
+  }
+}

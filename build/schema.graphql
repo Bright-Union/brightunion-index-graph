@@ -1,0 +1,106 @@
+type AdminChanged @entity {
+  id: ID!
+  previousAdmin: Bytes! # address
+  newAdmin: Bytes! # address
+}
+
+type BeaconUpgraded @entity {
+  id: ID!
+  beacon: Bytes! # address
+}
+
+type Upgraded @entity {
+  id: ID!
+  implementation: Bytes! # address
+}
+type Approval @entity {
+  id: ID!
+  owner: Bytes! # address
+  spender: Bytes! # address
+  value: BigInt! # uint256
+}
+
+type CallUnstake @entity {
+  id: ID!
+  controller: Bytes! # address
+  amount: BigInt! # uint256
+}
+
+type FeeActualized @entity {
+  id: ID!
+  _manager: Bytes! # address
+  _managerFee: BigInt! # uint256
+}
+
+type IndexBurn @entity {
+  id: ID!
+  sender: Bytes! # address
+  indexAmount: BigInt! # uint256
+  baseAmount: BigInt! # uint256
+}
+
+type IndexDeposit @entity {
+  id: ID!
+  depositor: Bytes! # address
+  amount: BigInt! # uint256
+  depoositors: BigInt! # uint256
+  externalPool: BigInt! # uint256
+}
+
+type IndexInternalDeposit @entity {
+  id: ID!
+  depositor: Bytes! # address
+  amount: BigInt! # uint256
+  internalPool: BigInt! # uint256
+}
+
+type Paused @entity {
+  id: ID!
+  account: Bytes! # address
+}
+
+type RoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type RoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type RoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type Stake @entity {
+  id: ID!
+  depositors: BigInt! # uint256
+  stake: BigInt! # uint256
+  externalPool: BigInt! # uint256
+}
+
+type Transfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  value: BigInt! # uint256
+}
+
+type Unpaused @entity {
+  id: ID!
+  account: Bytes! # address
+}
+
+type Unstake @entity {
+  id: ID!
+  controller: Bytes! # address
+  amount: BigInt! # uint256
+}
