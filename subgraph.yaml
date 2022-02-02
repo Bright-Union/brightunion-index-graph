@@ -3,37 +3,12 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: BrightRiskToken_proxy
-    network: mainnet
-    source:
-      address: "0xa4b032895BcB6B11ec7d21380f557919D448FD04"
-      abi: BrightRiskToken_proxy
-      startBlock: 14093955
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - AdminChanged
-        - BeaconUpgraded
-        - Upgraded
-      abis:
-        - name: BrightRiskToken_proxy
-          file: ./abis/BrightRiskToken_proxy.json
-      eventHandlers:
-        - event: AdminChanged(address,address)
-          handler: handleAdminChanged
-        - event: BeaconUpgraded(indexed address)
-          handler: handleBeaconUpgraded
-        - event: Upgraded(indexed address)
-          handler: handleUpgraded
-      file: ./src/mapping_proxy.ts
-  - kind: ethereum
     name: BrightRiskToken
     network: mainnet
     source:
-      address: "0x8efe4eceec0d3d3f1f41ddb9ada4eb134127022e"
+      address: "0xa4b032895BcB6B11ec7d21380f557919D448FD04"
       abi: BrightRiskToken
+      startBlock: 13989478
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -85,4 +60,4 @@ dataSources:
           handler: handleUnpaused
         - event: Unstake(indexed address,uint256)
           handler: handleUnstake
-      file: ./src/mapping.ts
+      file: ./src/mapping_proxy.ts
