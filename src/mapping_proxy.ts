@@ -30,19 +30,7 @@ import {
   Unpaused,
   Unstake
 } from "../generated/schema"
-import { AdminChanged, BeaconUpgraded, Upgraded } from "../generated/schema"
-import { BigDecimal,
-  store,
-  ethereum,
-  JSONValue,
-  TypedMap,
-  Entity,
-  Bytes,
-  Address,
-  BigInt } from '@graphprotocol/graph-ts'
 import { BrightRiskToken } from "../generated/BrightRiskToken/BrightRiskToken"
-
-
 
 export function handleApproval(event: ApprovalEvent): void {
   let entity = new Approval(
@@ -58,6 +46,9 @@ export function handleCallUnstake(event: CallUnstakeEvent): void {
   let entity = new CallUnstake(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+  let timestamp =  event.block.timestamp
+  entity.timestamp = timestamp
+
   entity.controller = event.params.controller
   entity.amount = event.params.amount
   entity.save()
@@ -76,6 +67,9 @@ export function handleIndexBurn(event: IndexBurnEvent): void {
   let entity = new IndexBurn(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+  let timestamp =  event.block.timestamp
+  entity.timestamp = timestamp
+
   entity.sender = event.params.sender
   entity.indexAmount = event.params.indexAmount
   entity.baseAmount = event.params.baseAmount
@@ -86,9 +80,12 @@ export function handleIndexDeposit(event: IndexDepositEvent): void {
   let entity = new IndexDeposit(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+  let timestamp =  event.block.timestamp
+  entity.timestamp = timestamp
 
   let contract = BrightRiskToken.bind(event.address);
   let indexPrice  = contract.convertIndexToInvestment(event.params.amount);
+
 
   entity.depositor = event.params.depositor
   entity.amount = event.params.amount
@@ -96,6 +93,7 @@ export function handleIndexDeposit(event: IndexDepositEvent): void {
   entity.externalPool = event.params.externalPool
   entity.externalPool = event.params.externalPool
   entity.price = indexPrice
+  entity.timestamp = timestamp
 
   entity.save()
 }
@@ -110,6 +108,8 @@ export function handleIndexInternalDeposit(
 
   let contract = BrightRiskToken.bind(event.address);
   let indexPrice  = contract.convertIndexToInvestment(event.params.amount);
+  let timestamp =  event.block.timestamp
+  entity.timestamp = timestamp
 
   entity.depositor = event.params.depositor
   entity.amount = event.params.amount
@@ -163,6 +163,10 @@ export function handleStake(event: StakeEvent): void {
 
   let contract = BrightRiskToken.bind(event.address);
   let indexPrice  = contract.convertIndexToInvestment(event.params.stake);
+
+  let timestamp =  event.block.timestamp
+  entity.timestamp = timestamp
+
   entity.depositors = event.params.depositors
   entity.stake = event.params.stake
   entity.externalPool = event.params.externalPool
@@ -174,9 +178,12 @@ export function handleTransfer(event: TransferEvent): void {
   let entity = new Transfer(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+  let timestamp =  event.block.timestamp
+
   entity.from = event.params.from
   entity.to = event.params.to
   entity.value = event.params.value
+  entity.timestamp =  timestamp
   entity.save()
 }
 
@@ -195,6 +202,10 @@ export function handleUnstake(event: UnstakeEvent): void {
 
   let contract = BrightRiskToken.bind(event.address);
   let indexPrice  = contract.convertIndexToInvestment(event.params.amount);
+
+  let timestamp =  event.block.timestamp
+  entity.timestamp = timestamp
+
   entity.controller = event.params.controller
   entity.amount = event.params.amount
   entity.price = indexPrice

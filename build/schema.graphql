@@ -25,6 +25,7 @@ type CallUnstake @entity {
   controller: Bytes! # address
   amount: BigInt! # uint256
   price: BigInt! # uint256
+  timestamp: BigInt! # uint256
 }
 
 type FeeActualized @entity {
@@ -39,6 +40,7 @@ type IndexBurn @entity {
   indexAmount: BigInt! # uint256
   baseAmount: BigInt! # uint256
   price: BigInt! # uint256
+  timestamp: BigInt! # uint256
 }
 
 type IndexDeposit @entity {
@@ -48,6 +50,7 @@ type IndexDeposit @entity {
   depoositors: BigInt! # uint256
   externalPool: BigInt! # uint256
   price: BigInt! # uint256
+  timestamp: BigInt! # uint256
 }
 
 type IndexInternalDeposit @entity {
@@ -56,7 +59,7 @@ type IndexInternalDeposit @entity {
   amount: BigInt! # uint256
   internalPool: BigInt! # uint256
   price: BigInt! # uint256
-
+  timestamp: BigInt! # uint256
 }
 
 
@@ -92,7 +95,7 @@ type Stake @entity {
   stake: BigInt! # uint256
   externalPool: BigInt! # uint256
   price: BigInt! # uint256
-
+  timestamp: BigInt! # uint256
 }
 
 type Transfer @entity {
@@ -100,6 +103,7 @@ type Transfer @entity {
   from: Bytes! # address
   to: Bytes! # address
   value: BigInt! # uint256
+  timestamp: BigInt! # uint256
 }
 
 type Unpaused @entity {
@@ -112,5 +116,5 @@ type Unstake @entity {
   controller: Bytes! # address
   amount: BigInt! # uint256
   price: BigInt! # uint256
-
+  timestamp: BigInt! # uint256
 }

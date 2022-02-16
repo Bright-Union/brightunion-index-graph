@@ -225,6 +225,7 @@ export class CallUnstake extends Entity {
     this.set("controller", Value.fromBytes(Bytes.empty()));
     this.set("amount", Value.fromBigInt(BigInt.zero()));
     this.set("price", Value.fromBigInt(BigInt.zero()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -278,6 +279,15 @@ export class CallUnstake extends Entity {
 
   set price(value: BigInt) {
     this.set("price", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
   }
 }
 
@@ -344,6 +354,7 @@ export class IndexBurn extends Entity {
     this.set("indexAmount", Value.fromBigInt(BigInt.zero()));
     this.set("baseAmount", Value.fromBigInt(BigInt.zero()));
     this.set("price", Value.fromBigInt(BigInt.zero()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -407,6 +418,15 @@ export class IndexBurn extends Entity {
   set price(value: BigInt) {
     this.set("price", Value.fromBigInt(value));
   }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class IndexDeposit extends Entity {
@@ -419,6 +439,7 @@ export class IndexDeposit extends Entity {
     this.set("depoositors", Value.fromBigInt(BigInt.zero()));
     this.set("externalPool", Value.fromBigInt(BigInt.zero()));
     this.set("price", Value.fromBigInt(BigInt.zero()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -491,6 +512,15 @@ export class IndexDeposit extends Entity {
   set price(value: BigInt) {
     this.set("price", Value.fromBigInt(value));
   }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class IndexInternalDeposit extends Entity {
@@ -502,6 +532,7 @@ export class IndexInternalDeposit extends Entity {
     this.set("amount", Value.fromBigInt(BigInt.zero()));
     this.set("internalPool", Value.fromBigInt(BigInt.zero()));
     this.set("price", Value.fromBigInt(BigInt.zero()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -566,6 +597,15 @@ export class IndexInternalDeposit extends Entity {
 
   set price(value: BigInt) {
     this.set("price", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
   }
 }
 
@@ -816,6 +856,7 @@ export class Stake extends Entity {
     this.set("stake", Value.fromBigInt(BigInt.zero()));
     this.set("externalPool", Value.fromBigInt(BigInt.zero()));
     this.set("price", Value.fromBigInt(BigInt.zero()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -879,6 +920,15 @@ export class Stake extends Entity {
   set price(value: BigInt) {
     this.set("price", Value.fromBigInt(value));
   }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class Transfer extends Entity {
@@ -889,6 +939,7 @@ export class Transfer extends Entity {
     this.set("from", Value.fromBytes(Bytes.empty()));
     this.set("to", Value.fromBytes(Bytes.empty()));
     this.set("value", Value.fromBigInt(BigInt.zero()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -942,6 +993,15 @@ export class Transfer extends Entity {
 
   set value(value: BigInt) {
     this.set("value", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
   }
 }
 
@@ -997,6 +1057,7 @@ export class Unstake extends Entity {
     this.set("controller", Value.fromBytes(Bytes.empty()));
     this.set("amount", Value.fromBigInt(BigInt.zero()));
     this.set("price", Value.fromBigInt(BigInt.zero()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -1050,5 +1111,14 @@ export class Unstake extends Entity {
 
   set price(value: BigInt) {
     this.set("price", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
   }
 }
