@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0xa4b032895BcB6B11ec7d21380f557919D448FD04"
       abi: BrightRiskToken
-      startBlock: 13989478
+      startBlock: 14119867
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
