@@ -22,6 +22,7 @@ import {
   IndexDeposit,
   IndexInternalDeposit,
   Paused,
+  Price,
   RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
@@ -31,11 +32,19 @@ import {
   Unstake
 } from "../generated/schema"
 import { BrightRiskToken } from "../generated/BrightRiskToken/BrightRiskToken"
+import { BigInt } from '@graphprotocol/graph-ts'
 
 export function handleApproval(event: ApprovalEvent): void {
   let entity = new Approval(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
+
   entity.owner = event.params.owner
   entity.spender = event.params.spender
   entity.value = event.params.value
@@ -46,8 +55,13 @@ export function handleCallUnstake(event: CallUnstakeEvent): void {
   let entity = new CallUnstake(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
-  let timestamp =  event.block.timestamp
-  entity.timestamp = timestamp
+
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
 
   entity.controller = event.params.controller
   entity.amount = event.params.amount
@@ -58,6 +72,13 @@ export function handleFeeActualized(event: FeeActualizedEvent): void {
   let entity = new FeeActualized(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
+
   entity._manager = event.params._manager
   entity._managerFee = event.params._managerFee
   entity.save()
@@ -67,8 +88,12 @@ export function handleIndexBurn(event: IndexBurnEvent): void {
   let entity = new IndexBurn(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
-  let timestamp =  event.block.timestamp
-  entity.timestamp = timestamp
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
 
   entity.sender = event.params.sender
   entity.indexAmount = event.params.indexAmount
@@ -80,21 +105,18 @@ export function handleIndexDeposit(event: IndexDepositEvent): void {
   let entity = new IndexDeposit(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
-  let timestamp =  event.block.timestamp
-  entity.timestamp = timestamp
 
-  let contract = BrightRiskToken.bind(event.address);
-  let indexPrice  = contract.convertIndexToInvestment(event.params.amount);
-
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
 
   entity.depositor = event.params.depositor
   entity.amount = event.params.amount
   entity.depoositors = event.params.depoositors
   entity.externalPool = event.params.externalPool
-  entity.externalPool = event.params.externalPool
-  entity.price = indexPrice
-  entity.timestamp = timestamp
-
   entity.save()
 }
 
@@ -105,23 +127,31 @@ export function handleIndexInternalDeposit(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
 
-
-  let contract = BrightRiskToken.bind(event.address);
-  let indexPrice  = contract.convertIndexToInvestment(event.params.amount);
-  let timestamp =  event.block.timestamp
-  entity.timestamp = timestamp
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
 
   entity.depositor = event.params.depositor
   entity.amount = event.params.amount
   entity.internalPool = event.params.internalPool
-  entity.price = indexPrice
   entity.save()
 }
 
 export function handlePaused(event: PausedEvent): void {
   let entity = new Paused(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-  )
+  ) 
+
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+
+  PriceEntity.save()
   entity.account = event.params.account
   entity.save()
 }
@@ -130,6 +160,14 @@ export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
   let entity = new RoleAdminChanged(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
+
   entity.role = event.params.role
   entity.previousAdminRole = event.params.previousAdminRole
   entity.newAdminRole = event.params.newAdminRole
@@ -140,6 +178,14 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
   let entity = new RoleGranted(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
+
   entity.role = event.params.role
   entity.account = event.params.account
   entity.sender = event.params.sender
@@ -150,6 +196,14 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
   let entity = new RoleRevoked(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
+
   entity.role = event.params.role
   entity.account = event.params.account
   entity.sender = event.params.sender
@@ -161,16 +215,16 @@ export function handleStake(event: StakeEvent): void {
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
 
-  let contract = BrightRiskToken.bind(event.address);
-  let indexPrice  = contract.convertIndexToInvestment(event.params.stake);
-
-  let timestamp =  event.block.timestamp
-  entity.timestamp = timestamp
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
 
   entity.depositors = event.params.depositors
   entity.stake = event.params.stake
   entity.externalPool = event.params.externalPool
-  entity.price = indexPrice
   entity.save()
 }
 
@@ -178,12 +232,17 @@ export function handleTransfer(event: TransferEvent): void {
   let entity = new Transfer(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
-  let timestamp =  event.block.timestamp
+
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
 
   entity.from = event.params.from
   entity.to = event.params.to
   entity.value = event.params.value
-  entity.timestamp =  timestamp
   entity.save()
 }
 
@@ -191,6 +250,14 @@ export function handleUnpaused(event: UnpausedEvent): void {
   let entity = new Unpaused(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
+
   entity.account = event.params.account
   entity.save()
 }
@@ -200,14 +267,14 @@ export function handleUnstake(event: UnstakeEvent): void {
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
 
-  let contract = BrightRiskToken.bind(event.address);
-  let indexPrice  = contract.convertIndexToInvestment(event.params.amount);
-
-  let timestamp =  event.block.timestamp
-  entity.timestamp = timestamp
+  let IndexContract = BrightRiskToken.bind(event.address);
+  let indexPrice  = IndexContract.convertIndexToInvestment(BigInt.fromString("1000000000000000000"));
+  let PriceEntity = new Price(event.block.timestamp.toString());
+  PriceEntity.timestamp = event.block.timestamp
+  PriceEntity.price = indexPrice
+  PriceEntity.save()
 
   entity.controller = event.params.controller
   entity.amount = event.params.amount
-  entity.price = indexPrice
   entity.save()
 }

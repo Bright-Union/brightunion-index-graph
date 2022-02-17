@@ -104,6 +104,7 @@ type Transfer @entity {
   to: Bytes! # address
   value: BigInt! # uint256
   timestamp: BigInt! # uint256
+  price: BigInt! # uint256
 }
 
 type Unpaused @entity {
@@ -117,4 +118,11 @@ type Unstake @entity {
   amount: BigInt! # uint256
   price: BigInt! # uint256
   timestamp: BigInt! # uint256
+}
+
+type Price @entity {
+  id: ID!
+  timestamp: BigInt! # uint256
+  price: BigInt! # uint256
+
 }
